@@ -1,0 +1,30 @@
+{
+  "validation_base_rate": 0.11268436578171091,
+  "shuffled_label_val_pr_auc": [
+    0.100039993764819,
+    0.09461436268520099,
+    0.12725688053380424
+  ],
+  "best_single_columns": [
+    {
+      "feature": "f017",
+      "val_pr_auc": 0.5042787480071809
+    },
+    {
+      "feature": "f004",
+      "val_pr_auc": 0.489662632867014
+    },
+    {
+      "feature": "f013",
+      "val_pr_auc": 0.489662632867014
+    },
+    {
+      "feature": "f131",
+      "val_pr_auc": 0.4815499259732588
+    },
+    {
+      "feature": "f089",
+      "val_pr_auc": 0.4779599814898245
+    }
+  ]
+}
