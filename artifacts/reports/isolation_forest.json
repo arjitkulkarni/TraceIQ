@@ -1,0 +1,7 @@
+{
+  "note": "Unsupervised overlay. Not part of any risk score.",
+  "val_pr_auc": 0.06201370011282466,
+  "val_base_rate": 0.11268436578171091,
+  "test_pr_auc": 0.033578224887835025,
+  "test_base_rate": 0.05686695278969957
+}
