@@ -1,0 +1,50 @@
+{
+  "logistic__all": {
+    "params": {
+      "C": 0.01
+    },
+    "val_pr_auc": 0.5433368656644908
+  },
+  "logistic__local": {
+    "params": {
+      "C": 10.0
+    },
+    "val_pr_auc": 0.4409071929625332
+  },
+  "xgboost__all": {
+    "params": {
+      "subsample": 0.8,
+      "colsample_bytree": 0.5,
+      "n_estimators": 600,
+      "max_depth": 4,
+      "learning_rate": 0.1
+    },
+    "val_pr_auc": 0.9806604361927647
+  },
+  "xgboost__local": {
+    "params": {
+      "subsample": 0.8,
+      "colsample_bytree": 0.5,
+      "n_estimators": 600,
+      "max_depth": 4,
+      "learning_rate": 0.05
+    },
+    "val_pr_auc": 0.9748987208601095
+  },
+  "random_forest__all": {
+    "params": {
+      "n_estimators": 300,
+      "max_features": 0.1,
+      "min_samples_leaf": 3
+    },
+    "val_pr_auc": 0.9760223691421035
+  },
+  "random_forest__local": {
+    "params": {
+      "n_estimators": 300,
+      "max_features": 0.1,
+      "min_samples_leaf": 3
+    },
+    "val_pr_auc": 0.9722632078607447
+  }
+}
