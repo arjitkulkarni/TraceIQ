@@ -1,0 +1,13 @@
+{
+  "explained": 70,
+  "skipped_no_incoming_context": 0,
+  "explained_model": "deployed",
+  "mean_edge_top5_jaccard": 0.44552154195011345,
+  "mean_feature_top5_jaccard": 0.44765684051398336,
+  "mean_logit_drop_without_top_edges": 3.604681842667716,
+  "mean_logit_change_only_top_edges": 1.0399446879114425,
+  "mean_logit_drop_without_any_edges": 3.7141474178859166,
+  "occlusion_spearman_mean": 0.3729465670689536,
+  "occlusion_spearman_median": 0.30418367346938774,
+  "occlusion_spearman_cases": 65
+}
