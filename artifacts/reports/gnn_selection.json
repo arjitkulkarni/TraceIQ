@@ -1,0 +1,422 @@
+{
+  "mlp": {
+    "params": {
+      "hidden": 128,
+      "lr": 0.005,
+      "dropout": 0.2
+    },
+    "val_pr_auc": 0.8368923898945173,
+    "best_epoch": 14,
+    "epochs": 20,
+    "grid": [
+      {
+        "params": {
+          "hidden": 64,
+          "lr": 0.001,
+          "dropout": 0.2
+        },
+        "val_pr_auc": 0.768235277424859,
+        "best_epoch": 5
+      },
+      {
+        "params": {
+          "hidden": 64,
+          "lr": 0.001,
+          "dropout": 0.5
+        },
+        "val_pr_auc": 0.7840014218869467,
+        "best_epoch": 5
+      },
+      {
+        "params": {
+          "hidden": 64,
+          "lr": 0.005,
+          "dropout": 0.2
+        },
+        "val_pr_auc": 0.8119651288944677,
+        "best_epoch": 14
+      },
+      {
+        "params": {
+          "hidden": 64,
+          "lr": 0.005,
+          "dropout": 0.5
+        },
+        "val_pr_auc": 0.8200189898399736,
+        "best_epoch": 17
+      },
+      {
+        "params": {
+          "hidden": 128,
+          "lr": 0.001,
+          "dropout": 0.2
+        },
+        "val_pr_auc": 0.7887344137741297,
+        "best_epoch": 3
+      },
+      {
+        "params": {
+          "hidden": 128,
+          "lr": 0.001,
+          "dropout": 0.5
+        },
+        "val_pr_auc": 0.804304513387619,
+        "best_epoch": 3
+      },
+      {
+        "params": {
+          "hidden": 128,
+          "lr": 0.005,
+          "dropout": 0.2
+        },
+        "val_pr_auc": 0.8368923898945173,
+        "best_epoch": 14
+      },
+      {
+        "params": {
+          "hidden": 128,
+          "lr": 0.005,
+          "dropout": 0.5
+        },
+        "val_pr_auc": 0.8276228639355215,
+        "best_epoch": 14
+      }
+    ]
+  },
+  "graphsage": {
+    "params": {
+      "hidden": 128,
+      "lr": 0.005,
+      "dropout": 0.5
+    },
+    "val_pr_auc": 0.8658437747571351,
+    "best_epoch": 18,
+    "epochs": 20,
+    "grid": [
+      {
+        "params": {
+          "hidden": 64,
+          "lr": 0.001,
+          "dropout": 0.2
+        },
+        "val_pr_auc": 0.8054824671879837,
+        "best_epoch": 5
+      },
+      {
+        "params": {
+          "hidden": 64,
+          "lr": 0.001,
+          "dropout": 0.5
+        },
+        "val_pr_auc": 0.7885369571950149,
+        "best_epoch": 5
+      },
+      {
+        "params": {
+          "hidden": 64,
+          "lr": 0.005,
+          "dropout": 0.2
+        },
+        "val_pr_auc": 0.8389194246997095,
+        "best_epoch": 17
+      },
+      {
+        "params": {
+          "hidden": 64,
+          "lr": 0.005,
+          "dropout": 0.5
+        },
+        "val_pr_auc": 0.83989924202592,
+        "best_epoch": 17
+      },
+      {
+        "params": {
+          "hidden": 128,
+          "lr": 0.001,
+          "dropout": 0.2
+        },
+        "val_pr_auc": 0.8016360413259026,
+        "best_epoch": 18
+      },
+      {
+        "params": {
+          "hidden": 128,
+          "lr": 0.001,
+          "dropout": 0.5
+        },
+        "val_pr_auc": 0.7992073372426796,
+        "best_epoch": 4
+      },
+      {
+        "params": {
+          "hidden": 128,
+          "lr": 0.005,
+          "dropout": 0.2
+        },
+        "val_pr_auc": 0.8566968849155373,
+        "best_epoch": 14
+      },
+      {
+        "params": {
+          "hidden": 128,
+          "lr": 0.005,
+          "dropout": 0.5
+        },
+        "val_pr_auc": 0.8658437747571351,
+        "best_epoch": 18
+      }
+    ]
+  },
+  "static_gcn": {
+    "params": {
+      "hidden": 128,
+      "lr": 0.005,
+      "dropout": 0.2
+    },
+    "val_pr_auc": 0.7002614764680558,
+    "best_epoch": 18,
+    "epochs": 20,
+    "grid": [
+      {
+        "params": {
+          "hidden": 64,
+          "lr": 0.001,
+          "dropout": 0.2
+        },
+        "val_pr_auc": 0.6135797743531857,
+        "best_epoch": 19
+      },
+      {
+        "params": {
+          "hidden": 64,
+          "lr": 0.001,
+          "dropout": 0.5
+        },
+        "val_pr_auc": 0.6127797748919653,
+        "best_epoch": 19
+      },
+      {
+        "params": {
+          "hidden": 64,
+          "lr": 0.005,
+          "dropout": 0.2
+        },
+        "val_pr_auc": 0.6496792764099245,
+        "best_epoch": 18
+      },
+      {
+        "params": {
+          "hidden": 64,
+          "lr": 0.005,
+          "dropout": 0.5
+        },
+        "val_pr_auc": 0.6574865514665691,
+        "best_epoch": 19
+      },
+      {
+        "params": {
+          "hidden": 128,
+          "lr": 0.001,
+          "dropout": 0.2
+        },
+        "val_pr_auc": 0.6291175064013381,
+        "best_epoch": 18
+      },
+      {
+        "params": {
+          "hidden": 128,
+          "lr": 0.001,
+          "dropout": 0.5
+        },
+        "val_pr_auc": 0.6256530028877026,
+        "best_epoch": 20
+      },
+      {
+        "params": {
+          "hidden": 128,
+          "lr": 0.005,
+          "dropout": 0.2
+        },
+        "val_pr_auc": 0.7002614764680558,
+        "best_epoch": 18
+      },
+      {
+        "params": {
+          "hidden": 128,
+          "lr": 0.005,
+          "dropout": 0.5
+        },
+        "val_pr_auc": 0.6923200579888544,
+        "best_epoch": 18
+      }
+    ]
+  },
+  "evolvegcn_o": {
+    "params": {
+      "hidden": 128,
+      "lr": 0.005,
+      "dropout": 0.2
+    },
+    "val_pr_auc": 0.6400878080328154,
+    "best_epoch": 17,
+    "epochs": 20,
+    "grid": [
+      {
+        "params": {
+          "hidden": 64,
+          "lr": 0.001,
+          "dropout": 0.2
+        },
+        "val_pr_auc": 0.6003417825370926,
+        "best_epoch": 14
+      },
+      {
+        "params": {
+          "hidden": 64,
+          "lr": 0.001,
+          "dropout": 0.5
+        },
+        "val_pr_auc": 0.4717021820884327,
+        "best_epoch": 20
+      },
+      {
+        "params": {
+          "hidden": 64,
+          "lr": 0.005,
+          "dropout": 0.2
+        },
+        "val_pr_auc": 0.5842980882967237,
+        "best_epoch": 20
+      },
+      {
+        "params": {
+          "hidden": 64,
+          "lr": 0.005,
+          "dropout": 0.5
+        },
+        "val_pr_auc": 0.5907856937233191,
+        "best_epoch": 19
+      },
+      {
+        "params": {
+          "hidden": 128,
+          "lr": 0.001,
+          "dropout": 0.2
+        },
+        "val_pr_auc": 0.6237333080375583,
+        "best_epoch": 19
+      },
+      {
+        "params": {
+          "hidden": 128,
+          "lr": 0.001,
+          "dropout": 0.5
+        },
+        "val_pr_auc": 0.5865441275617511,
+        "best_epoch": 19
+      },
+      {
+        "params": {
+          "hidden": 128,
+          "lr": 0.005,
+          "dropout": 0.2
+        },
+        "val_pr_auc": 0.6400878080328154,
+        "best_epoch": 17
+      },
+      {
+        "params": {
+          "hidden": 128,
+          "lr": 0.005,
+          "dropout": 0.5
+        },
+        "val_pr_auc": 0.595459077226579,
+        "best_epoch": 20
+      }
+    ]
+  },
+  "evolvegcn_h": {
+    "params": {
+      "hidden": 64,
+      "lr": 0.005,
+      "dropout": 0.5
+    },
+    "val_pr_auc": 0.6461805507453116,
+    "best_epoch": 20,
+    "epochs": 20,
+    "grid": [
+      {
+        "params": {
+          "hidden": 64,
+          "lr": 0.001,
+          "dropout": 0.2
+        },
+        "val_pr_auc": 0.6037712001746127,
+        "best_epoch": 20
+      },
+      {
+        "params": {
+          "hidden": 64,
+          "lr": 0.001,
+          "dropout": 0.5
+        },
+        "val_pr_auc": 0.5696557793569823,
+        "best_epoch": 20
+      },
+      {
+        "params": {
+          "hidden": 64,
+          "lr": 0.005,
+          "dropout": 0.2
+        },
+        "val_pr_auc": 0.6286387644877535,
+        "best_epoch": 19
+      },
+      {
+        "params": {
+          "hidden": 64,
+          "lr": 0.005,
+          "dropout": 0.5
+        },
+        "val_pr_auc": 0.6461805507453116,
+        "best_epoch": 20
+      },
+      {
+        "params": {
+          "hidden": 128,
+          "lr": 0.001,
+          "dropout": 0.2
+        },
+        "val_pr_auc": 0.6033975919337118,
+        "best_epoch": 19
+      },
+      {
+        "params": {
+          "hidden": 128,
+          "lr": 0.001,
+          "dropout": 0.5
+        },
+        "val_pr_auc": 0.5692392726422656,
+        "best_epoch": 19
+      },
+      {
+        "params": {
+          "hidden": 128,
+          "lr": 0.005,
+          "dropout": 0.2
+        },
+        "val_pr_auc": 0.6080023708560277,
+        "best_epoch": 20
+      },
+      {
+        "params": {
+          "hidden": 128,
+          "lr": 0.005,
+          "dropout": 0.5
+        },
+        "val_pr_auc": 0.5352119294433276,
+        "best_epoch": 20
+      }
+    ]
+  }
+}
