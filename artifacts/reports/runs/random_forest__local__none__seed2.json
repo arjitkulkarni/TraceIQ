@@ -1,0 +1,42 @@
+{
+  "name": "random_forest__local__none__seed2",
+  "model": "random_forest",
+  "feature_set": "local",
+  "edge_mode": "none",
+  "seed": 2,
+  "params": {
+    "n_estimators": 300,
+    "max_features": 0.1,
+    "min_samples_leaf": 3
+  },
+  "threshold": 0.6207895732702037,
+  "val_metrics": {
+    "tp": 877,
+    "fp": 25,
+    "fn": 78,
+    "tn": 7495,
+    "threshold": 0.6207895732702037,
+    "precision": 0.9722838137472284,
+    "recall": 0.9183246073298429,
+    "f1": 0.9445341949380721,
+    "accuracy": 0.9878466076696165,
+    "pr_auc": 0.9721667983485323,
+    "alerts": 902,
+    "known_nodes": 8475,
+    "illicit_nodes": 955,
+    "recall_at_100": 0.10471204188481675,
+    "precision_at_100": 1.0,
+    "recall_at_500": 0.5235602094240838,
+    "precision_at_500": 1.0
+  },
+  "environment": {
+    "python": "3.11.9",
+    "platform": "Windows-10-10.0.26300-SP0",
+    "torch": "2.11.0+cu128",
+    "cuda": "12.8",
+    "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+    "torch_geometric": "2.8.1"
+  },
+  "fit_seconds": 1.2568109000567347,
+  "inference_seconds_all_nodes": 0.6163347000256181
+}
