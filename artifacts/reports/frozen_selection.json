@@ -1,0 +1,108 @@
+{
+  "families": {
+    "logistic": {
+      "feature_set": "all",
+      "edge_mode": "none",
+      "val_pr_auc_mean": 0.5433368656644908,
+      "median_seed_run": "logistic__all__none__seed0",
+      "runs": [
+        "logistic__all__none__seed0"
+      ]
+    },
+    "random_forest": {
+      "feature_set": "all",
+      "edge_mode": "none",
+      "val_pr_auc_mean": 0.9759048166733209,
+      "median_seed_run": "random_forest__all__none__seed4",
+      "runs": [
+        "random_forest__all__none__seed2",
+        "random_forest__all__none__seed1",
+        "random_forest__all__none__seed4",
+        "random_forest__all__none__seed0",
+        "random_forest__all__none__seed3"
+      ]
+    },
+    "xgboost": {
+      "feature_set": "all",
+      "edge_mode": "none",
+      "val_pr_auc_mean": 0.9786051484958289,
+      "median_seed_run": "xgboost__all__none__seed4",
+      "runs": [
+        "xgboost__all__none__seed1",
+        "xgboost__all__none__seed3",
+        "xgboost__all__none__seed4",
+        "xgboost__all__none__seed2",
+        "xgboost__all__none__seed0"
+      ]
+    },
+    "mlp": {
+      "feature_set": "local",
+      "edge_mode": "none",
+      "val_pr_auc_mean": 0.8730739468193404,
+      "median_seed_run": "mlp__local__none__seed3",
+      "runs": [
+        "mlp__local__none__seed0",
+        "mlp__local__none__seed2",
+        "mlp__local__none__seed3",
+        "mlp__local__none__seed1",
+        "mlp__local__none__seed4"
+      ]
+    },
+    "graphsage": {
+      "feature_set": "local",
+      "edge_mode": "symmetrized",
+      "val_pr_auc_mean": 0.923057836815546,
+      "median_seed_run": "graphsage__local__symmetrized__seed3",
+      "runs": [
+        "graphsage__local__symmetrized__seed1",
+        "graphsage__local__symmetrized__seed0",
+        "graphsage__local__symmetrized__seed3",
+        "graphsage__local__symmetrized__seed4",
+        "graphsage__local__symmetrized__seed2"
+      ]
+    },
+    "static_gcn": {
+      "feature_set": "local",
+      "edge_mode": "symmetrized",
+      "val_pr_auc_mean": 0.8402314946617164,
+      "median_seed_run": "static_gcn__local__symmetrized__seed1",
+      "runs": [
+        "static_gcn__local__symmetrized__seed3",
+        "static_gcn__local__symmetrized__seed0",
+        "static_gcn__local__symmetrized__seed1",
+        "static_gcn__local__symmetrized__seed4",
+        "static_gcn__local__symmetrized__seed2"
+      ]
+    },
+    "evolvegcn_o": {
+      "feature_set": "local",
+      "edge_mode": "symmetrized",
+      "val_pr_auc_mean": 0.781927035607507,
+      "median_seed_run": "evolvegcn_o__local__symmetrized__seed2",
+      "runs": [
+        "evolvegcn_o__local__symmetrized__seed3",
+        "evolvegcn_o__local__symmetrized__seed0",
+        "evolvegcn_o__local__symmetrized__seed2",
+        "evolvegcn_o__local__symmetrized__seed1",
+        "evolvegcn_o__local__symmetrized__seed4"
+      ]
+    },
+    "evolvegcn_h": {
+      "feature_set": "all",
+      "edge_mode": "symmetrized",
+      "val_pr_auc_mean": 0.7130723196716447,
+      "median_seed_run": "evolvegcn_h__all__symmetrized__seed0",
+      "runs": [
+        "evolvegcn_h__all__symmetrized__seed2",
+        "evolvegcn_h__all__symmetrized__seed4",
+        "evolvegcn_h__all__symmetrized__seed0",
+        "evolvegcn_h__all__symmetrized__seed3",
+        "evolvegcn_h__all__symmetrized__seed1"
+      ]
+    }
+  },
+  "serving_model_family": "graphsage",
+  "serving_run": "graphsage__local__symmetrized__seed3",
+  "best_overall_by_validation": "xgboost",
+  "rule": "Per family: variant with the highest mean validation PR-AUC. Serving model: best graph family, median-validation seed. Threshold: per run, maximum validation F1."
+}
