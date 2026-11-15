@@ -1,9 +1,21 @@
 .venv/
 venv*/
 __pycache__/
+.pytest_cache/
 *.pt
 *.pth
 *.ckpt
+*.joblib
 node_modules/
+frontend/dist/
 .env
 .kaggle/
+
+# Regenerable pipeline outputs
+data/processed/
+artifacts/models/
+artifacts/predictions/
+artifacts/traceiq.db
+artifacts_150_epochs/
+artifacts/reports/*.log
+artifacts/reports/train.done
