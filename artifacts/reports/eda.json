@@ -1,0 +1,52 @@
+{
+  "labeled_share": 0.22851366007587023,
+  "illicit_share_of_known_by_split": {
+    "train": 0.10979371863965806,
+    "val": 0.11268436578171091,
+    "test": 0.05686695278969957
+  },
+  "illicit_share_of_known_steps_43_49": 0.025272917601315985,
+  "illicit_share_of_known_steps_40_42": 0.10384700911718923,
+  "graph": {
+    "density_edges_per_node": 1.1501013402431184,
+    "isolated_nodes": 0,
+    "weak_components": 49,
+    "weak_components_per_step_min": 1,
+    "weak_components_per_step_max": 1,
+    "largest_component_share_max": 0.03867124047328102,
+    "in_degree_median": 1.0,
+    "in_degree_mean": 1.1501013402431184,
+    "in_degree_max": 284,
+    "out_degree_median": 1.0,
+    "out_degree_mean": 1.1501013402431184,
+    "out_degree_max": 472,
+    "max_nodes_in_a_step": 7880
+  },
+  "feature_drift_ks_train_vs_test": {
+    "ks_median": 0.08025000000000004,
+    "ks_max": 0.9985,
+    "features_with_ks_above_0_1": 65,
+    "top_features": [
+      {
+        "feature": "f100",
+        "ks": 0.9985
+      },
+      {
+        "feature": "f102",
+        "ks": 0.9982
+      },
+      {
+        "feature": "f135",
+        "ks": 0.99715
+      },
+      {
+        "feature": "f099",
+        "ks": 0.9967
+      },
+      {
+        "feature": "f138",
+        "ks": 0.98575
+      }
+    ]
+  }
+}
