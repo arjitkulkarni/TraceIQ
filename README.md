@@ -4,7 +4,40 @@
 
 TraceIQ classifies Bitcoin transactions in the Elliptic transaction graph as likely illicit or licit, using transaction features, directed money-flow neighborhoods, and sequential (temporal) modeling across time steps. It exposes the results through a fully local FastAPI service and a React investigation dashboard with explainable-AI evidence.
 
-> **Status:** planning complete, implementation not started. This README is the master plan. Every result, number and claim in it is a placeholder (`TBD`) until it is produced by the code in this repository. See [Section 20](#20-honesty-rules-what-we-will-and-will-not-claim).
+> **Status:** complete. All stages are built, and 81 automated tests pass. Every number below comes from the saved artifacts.
+
+## Quick start (Windows, already built)
+
+```powershell
+.\.venv\Scripts\python.exe -m uvicorn src.api.main:app --port 8000
+```
+
+Open http://127.0.0.1:8000 for the dashboard. See [Section 5](#5-environment-setup-windows-11--wsl2) to build from scratch.
+
+## Key results
+
+Test period: steps 40-49, 11,184 known transactions, 636 illicit. Each neural model trained for exactly 20 epochs (`gnn.epochs` in `config/experiments.yaml`). Tree and linear models do not train in epochs. This fixed budget is a deliberate change from the guide's early stopping, so that models can be compared epoch by epoch.
+
+| Model | Features | Edges | Accuracy | Precision | Recall | F1 | PR-AUC |
+|---|---|---|---:|---:|---:|---:|---:|
+| **XGBoost** | all | none | 0.971 | 0.855 | 0.592 | 0.699 | **0.675 ± 0.003** |
+| Random Forest | all | none | 0.973 | 0.922 | 0.576 | 0.709 | 0.661 ± 0.001 |
+| GraphSAGE | local | symmetrized | 0.966 | 0.801 | 0.548 | 0.649 | 0.627 ± 0.007 |
+| MLP (no edges) | local | none | 0.965 | 0.779 | 0.543 | 0.636 | 0.566 ± 0.011 |
+| Static GCN | local | symmetrized | 0.936 | 0.456 | 0.547 | 0.496 | 0.511 ± 0.054 |
+| EvolveGCN-O | local | symmetrized | 0.933 | 0.461 | 0.538 | 0.486 | 0.465 ± 0.072 |
+| EvolveGCN-H | all | symmetrized | 0.933 | 0.449 | 0.458 | 0.446 | 0.459 ± 0.068 |
+| Logistic Regression | all | none | 0.843 | 0.203 | 0.604 | 0.304 | 0.266 ± 0.000 |
+
+- **Accuracy:** always guessing licit scores 0.943 here, because only 5.7% of test transactions are illicit. Static GCN, both EvolveGCN models and Logistic Regression fall below that, so read accuracy alongside F1 and PR-AUC.
+- **RQ1, graphs:** edges clearly help a neural model (GraphSAGE beats the MLP by 0.061), but tree ensembles stay ahead of every graph model.
+- **RQ2, temporal state:** within 20 epochs it does not help (EvolveGCN-O trails Static GCN by 0.046). With up to 150 epochs and early stopping it led by 0.050, so this result reflects the short budget: EvolveGCN gets 6 weight updates per epoch against 30 for static models.
+- **Step 43:** the best models collapse from about 0.87 PR-AUC to about 0.05, and no model holds up. Temporal state gives no protection.
+- **RQ3, explanations:** the dashboard shows real evidence, but GNNExplainer importance agrees only weakly with measured edge effects (median rank correlation 0.30), so edges are ranked by measured effect.
+
+The full analysis is in [docs/report.md](docs/report.md). Decisions are in [docs/design_note.md](docs/design_note.md), and data findings are in [docs/eda_summary.md](docs/eda_summary.md).
+
+![Investigation view](docs/screenshots/investigate.png)
 
 Source of truth for all design decisions: `TraceIQ_Complete_Project_Guide_WSL.pdf` (in this folder). Where this README and the PDF disagree, the PDF wins.
 
@@ -68,12 +101,12 @@ Source of truth for all design decisions: `TraceIQ_Complete_Project_Guide_WSL.pd
 
 **Success criteria (project is done when all hold)**
 
-- [ ] Scripted, reproducible data loader with documented class mapping, node mapping and chronological split.
-- [ ] At least one tabular baseline, one static GNN and one sequential temporal model, evaluated on the same held-out time steps.
-- [ ] Minority-class metrics (precision, recall, F1, PR-AUC), confusion matrix and a documented decision threshold.
-- [ ] Local dashboard that loads real saved predictions and shows a real directed transaction neighborhood.
-- [ ] Explanations phrased as model evidence, with limitations stated.
-- [ ] Academic report and this README sufficient for another student to reproduce everything.
+- [x] Scripted, reproducible data loader with documented class mapping, node mapping and chronological split.
+- [x] At least one tabular baseline, one static GNN and one sequential temporal model, evaluated on the same held-out time steps.
+- [x] Minority-class metrics (precision, recall, F1, PR-AUC), confusion matrix and a documented decision threshold.
+- [x] Local dashboard that loads real saved predictions and shows a real directed transaction neighborhood.
+- [x] Explanations phrased as model evidence, with limitations stated.
+- [x] Academic report and this README sufficient for another student to reproduce everything.
 
 **Minimum viable research contribution:** a leakage-safe chronological benchmark of (XGBoost or Logistic Regression) vs GraphSAGE vs EvolveGCN, plus error analysis and an interactive explanation of selected transactions.
 
@@ -140,6 +173,16 @@ Full theory lives in the PDF, Sections 01 to 04.
 ---
 
 ## 5. Environment setup (Windows 11 + WSL2)
+
+> **This repository was built and run natively on Windows 11**, because WSL was not installed on the build machine: Python 3.11, PyTorch 2.11 with CUDA 12.8, PyG 2.8, on an RTX 5060 Laptop GPU with 8 GB. Nothing is Linux-specific, so the WSL steps below also apply but were not run.
+>
+> Native Windows setup:
+> ```powershell
+> py -3.11 -m venv .venv
+> .\.venv\Scripts\python.exe -m pip install -r requirements.txt
+> .\.venv\Scripts\python.exe -m pytest -q
+> ```
+> For the dashboard, Node 24 and `cd frontend; npm install; npm run build`.
 
 Target hardware: Windows 11, Ryzen 9 HX, 24 GB RAM, NVIDIA RTX 5070 8 GB VRAM. Everything runs locally. No cloud notebooks or hosted endpoints.
 
@@ -353,7 +396,7 @@ Data-quality tests (automated): edge endpoints subset of node IDs; one time step
 - **Three score types, kept separate:** model logit, sigmoid score (possibly uncalibrated), calibrated probability (only if validation data allows, e.g. Platt/isotonic).
 - **Threshold:** never default to 0.5. Choose on validation by objective (high recall, bounded false positives, or fixed review budget such as top-K). Record it before touching test.
 - **Risk tiers (Low/Medium/High):** configurable cutoffs, labeled "model-estimated risk". If uncalibrated, say "model score", never "92% chance of crime".
-- **Experiment tracking:** hidden dim, layers, dropout, lr, weight decay, threshold, seed. Early stopping; save best-validation checkpoint; at least 3 seeds with mean and variability; change one variable at a time.
+- **Experiment tracking:** hidden dim, layers, dropout, lr, weight decay, threshold, seed. Fixed epoch budget; save best-validation checkpoint; at least 3 seeds with mean and variability; change one variable at a time.
 
 ---
 
@@ -372,13 +415,7 @@ All metrics are computed on **known-label test nodes only**.
 
 **Fair comparison rules:** same split, same known-label test population, same positive class, identical metric code, train-only preprocessing, validation-only threshold rule, one main test report, no claims without numbers and uncertainty.
 
-**Results table (to be filled by experiments; do not hand-edit):**
-
-| Model | Precision | Recall | F1 | PR-AUC | Notes |
-|---|---|---|---|---|---|
-| Logistic / XGBoost | TBD | TBD | TBD | TBD | Tabular features |
-| GraphSAGE | TBD | TBD | TBD | TBD | Static graph |
-| EvolveGCN / recurrent | TBD | TBD | TBD | TBD | Ordered snapshots |
+**Results:** see [Key results](#key-results), `artifacts/reports/final_comparison.csv` and `ablations.csv`.
 
 **Also produce:** confusion matrices, PR curves, per-time-step metrics (drift), ablation table, error analysis (several TP/FP/FN with score, label, degree, 1-2 hop neighborhood; described conservatively).
 
@@ -387,6 +424,7 @@ All metrics are computed on **known-label test nodes only**.
 ## 13. Explainability and anomaly signals
 
 - **GNNExplainer** (PyG explain API) on a single transaction with a small bounded neighborhood. Output is *model-specific rationale*, not causal evidence of crime.
+- **Edge occlusion** deletes each edge and measures the real logit change. Because GNNExplainer agrees only weakly with it, the dashboard ranks edges by this measured effect.
 - Explanations are precomputed and cached for demo transactions.
 - Always state whether the explanation targets the deployed model or a proxy.
 - Record explanation variance and local-approximation limits.
@@ -520,35 +558,42 @@ TraceIQ is a triage/research tool. False positives can be harmful if read as acc
 
 ## 22. Commands cheat sheet (target interface)
 
-These are the intended entry points; they will exist as each stage is built.
+Run from the repository root with the venv Python. On Windows that is `.\.venv\Scripts\python.exe`.
 
 ```bash
-# setup
-source .venv/bin/activate
-pip install -r requirements.txt
+# everything, in dependency order
+python -m src.pipeline
+python -m src.pipeline --from compare     # resume at a stage
+python -m src.pipeline --from gnn         # after changing gnn.epochs in the config
 
-# C: data
-python -m src.data.verify_download
-python -m src.data.build_graph        # IDs, snapshots, masks, manifest
-python -m src.eval.eda                # figures + quality report
+# individual stages
+python -m src.data.verify_download        # checksums and manifest
+python -m src.data.quality                # data quality report
+python -m src.data.build_graph            # IDs, split, processor, time-proxy rule
+python -m src.eval.eda                    # figures and EDA numbers
+python -m src.eval.leakage_checks         # shuffled-label and single-column checks
+python -m src.train.baseline              # tabular models
+python -m src.train.gnn                   # MLP, GraphSAGE, Static GCN, EvolveGCN-O/H
+python -m src.eval.compare                # the only place test metrics are computed
+python -m src.eval.anomaly                # Isolation Forest overlay
+python -m src.eval.error_analysis         # TP, FP, FN cases
+python -m src.explain.run                 # GNNExplainer plus edge occlusion
+python -m src.api.build_index             # SQLite index for serving
 
-# D/F/G/H: training (all read config/experiments.yaml)
-python -m src.train.baseline
-python -m src.train.graphsage --seed 0
-python -m src.train.temporal  --seed 0
+# serve (built dashboard and API on one port)
+cd frontend && npm install && npm run build && cd ..
+python -m uvicorn src.api.main:app --port 8000
 
-# I: evaluation + J: explanations
-python -m src.eval.compare            # final test table, PR curves, confusion matrices
-python -m src.explain.run --top-k 50
+# or develop the UI with hot reload on port 5173
+cd frontend && npm run dev
 
-# K: serve
-python -m src.api.build_index         # SQLite from artifacts
-uvicorn src.api.main:app --port 8000
-cd frontend && npm install && npm run dev
-
-# quality
-pytest -q
+# tests
+python -m pytest -q
 ```
+
+Training runs that already exist are skipped. Neural runs and grid choices made with a different `gnn.epochs` are redone automatically. Delete `artifacts/reports/runs` to force a full rerun. At 20 epochs, the 90 neural runs take about 6 minutes on the GPU, plus the grid search.
+
+**Reproducibility note:** GPU training here is not bit-identical. In the earlier 150-epoch configuration, retraining the deployed run with its seed gave validation PR-AUC 0.9341 against 0.9339, but individual scores changed. Benchmark means reproduce. Individual transaction scores come from the saved run.
 
 ---
 
@@ -558,7 +603,7 @@ pytest -q
 2. Weber et al., *Anti-Money Laundering in Bitcoin*: https://arxiv.org/abs/1908.02591
 3. IBM EvolveGCN data construction: https://github.com/IBM/EvolveGCN/blob/master/elliptic_construction.md
 4. Pareja et al., *EvolveGCN*: https://arxiv.org/abs/1902.10191
-5. PyG Temporal docs: https://pytorch-geometric-temporal.readthedocs.io/en/stable/modules/root.html
+5. PyG Temporal docs (consulted; EvolveGCN here is our own implementation): https://pytorch-geometric-temporal.readthedocs.io/en/stable/modules/root.html
 6. PyTorch install: https://pytorch.org/get-started/locally/
 7. PyG install: https://pytorch-geometric.readthedocs.io/en/stable/install/installation.html
 8. GNNExplainer (PyG): https://pytorch-geometric.readthedocs.io/en/stable/generated/torch_geometric.explain.algorithm.GNNExplainer.html
