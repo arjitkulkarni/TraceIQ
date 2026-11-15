@@ -1,0 +1,44 @@
+{
+  "name": "xgboost__local__none__seed3",
+  "model": "xgboost",
+  "feature_set": "local",
+  "edge_mode": "none",
+  "seed": 3,
+  "params": {
+    "subsample": 0.8,
+    "colsample_bytree": 0.5,
+    "n_estimators": 600,
+    "max_depth": 4,
+    "learning_rate": 0.05
+  },
+  "threshold": 0.8336174488067627,
+  "val_metrics": {
+    "tp": 870,
+    "fp": 36,
+    "fn": 85,
+    "tn": 7484,
+    "threshold": 0.8336174488067627,
+    "precision": 0.9602649006622517,
+    "recall": 0.9109947643979057,
+    "f1": 0.9349811929070393,
+    "accuracy": 0.9857227138643068,
+    "pr_auc": 0.9753723656668877,
+    "alerts": 906,
+    "known_nodes": 8475,
+    "illicit_nodes": 955,
+    "recall_at_100": 0.10471204188481675,
+    "precision_at_100": 1.0,
+    "recall_at_500": 0.5225130890052356,
+    "precision_at_500": 0.998
+  },
+  "environment": {
+    "python": "3.11.9",
+    "platform": "Windows-10-10.0.26300-SP0",
+    "torch": "2.11.0+cu128",
+    "cuda": "12.8",
+    "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+    "torch_geometric": "2.8.1"
+  },
+  "fit_seconds": 1.2922513999510556,
+  "inference_seconds_all_nodes": 0.19439149997197092
+}
