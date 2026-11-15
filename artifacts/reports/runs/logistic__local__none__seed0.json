@@ -1,0 +1,40 @@
+{
+  "name": "logistic__local__none__seed0",
+  "model": "logistic",
+  "feature_set": "local",
+  "edge_mode": "none",
+  "seed": 0,
+  "params": {
+    "C": 10.0
+  },
+  "threshold": 0.9213283658027649,
+  "val_metrics": {
+    "tp": 786,
+    "fp": 533,
+    "fn": 169,
+    "tn": 6987,
+    "threshold": 0.9213283658027649,
+    "precision": 0.5959059893858984,
+    "recall": 0.8230366492146597,
+    "f1": 0.6912928759894459,
+    "accuracy": 0.9171681415929204,
+    "pr_auc": 0.4409071929625332,
+    "alerts": 1319,
+    "known_nodes": 8475,
+    "illicit_nodes": 955,
+    "recall_at_100": 0.0062827225130890054,
+    "precision_at_100": 0.06,
+    "recall_at_500": 0.13403141361256546,
+    "precision_at_500": 0.256
+  },
+  "environment": {
+    "python": "3.11.9",
+    "platform": "Windows-10-10.0.26300-SP0",
+    "torch": "2.11.0+cu128",
+    "cuda": "12.8",
+    "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+    "torch_geometric": "2.8.1"
+  },
+  "fit_seconds": 0.8717675999505445,
+  "inference_seconds_all_nodes": 0.014295300003141165
+}
