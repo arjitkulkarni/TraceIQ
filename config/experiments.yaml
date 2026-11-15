@@ -1,0 +1,76 @@
+# TraceIQ experiment configuration. This is the single source of truth for every run.
+
+# Chronological split. Declared from known-label counts only, before any model was trained.
+# Illicit counts: train 2954, validation 955, test 636.
+split:
+  train_steps: [1, 30]
+  val_steps: [31, 39]
+  test_steps: [40, 49]
+
+features:
+  # time_step is never a model input: test steps lie outside the training range.
+  # "local" = f000-f092 (93 per-transaction features).
+  # "all"   = local + f093-f164 (72 aggregates of one-hop neighbors, computed by the publishers).
+  local_count: 93
+  # "all_with_time_proxies" keeps the columns below and exists for one labeled ablation only.
+  sets: [all, local]
+  clip_value: 10.0   # fixed (not learned) clip applied after train-fitted scaling
+  # Columns whose variance is mostly between time steps act as a hidden time_step input.
+  # Measured on training-period rows only, before any model was trained.
+  time_proxy_eta2_threshold: 0.5
+
+seeds: [0, 1, 2, 3, 4]
+
+threshold:
+  # Chosen on validation only, then frozen before the test set is read.
+  rule: max_f1
+  review_budgets: [100, 500]
+
+risk_tiers:
+  # Presentation categories only. medium = half the frozen alert threshold.
+  high: alert_threshold
+  medium_fraction_of_threshold: 0.5
+
+baselines:
+  logistic:
+    C: [0.01, 0.1, 1.0, 10.0]
+  xgboost:
+    n_estimators: [300, 600]
+    max_depth: [4, 6]
+    learning_rate: [0.05, 0.1]
+    subsample: 0.8
+    colsample_bytree: 0.5
+  random_forest:
+    n_estimators: 300
+    max_features: [0.1, 0.3]
+    min_samples_leaf: [1, 3]
+
+gnn:
+  # Every neural model trains for exactly this many epochs, with no early stopping, so their
+  # per-epoch curves line up. Saved runs and grid choices from a different value are retrained.
+  # The weights kept are those of the best validation PR-AUC epoch within this budget.
+  epochs: 20
+  weight_decay: 0.0005
+  grid:
+    hidden: [64, 128]
+    lr: [0.001, 0.005]
+    dropout: [0.2, 0.5]
+  edge_modes: [directed, symmetrized]
+  bptt_window: 5     # temporal state is detached every N snapshots
+
+explain:
+  top_k_transactions: 50
+  explainer_epochs: 200
+  repeats: 3         # repeated runs, to measure explanation variance
+  max_hops: 2
+  max_nodes: 60
+  edge_importance_top: 10
+  occlusion_max_edges: 60
+  feature_importance_top: 10
+
+serving:
+  # Which row of the final comparison the dashboard serves is chosen on validation PR-AUC.
+  default_page_size: 25
+  max_page_size: 200
+  graph_max_hops: 2
+  graph_max_nodes: 60
