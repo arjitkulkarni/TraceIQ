@@ -1,0 +1,55 @@
+{
+  "split": {
+    "train_steps": [
+      1,
+      30
+    ],
+    "val_steps": [
+      31,
+      39
+    ],
+    "test_steps": [
+      40,
+      49
+    ]
+  },
+  "partitions": {
+    "train": {
+      "steps": [
+        1,
+        30
+      ],
+      "nodes": 123287,
+      "illicit": 2954,
+      "licit": 23951,
+      "unknown": 96382,
+      "illicit_share_of_known": 0.10979371863965806
+    },
+    "val": {
+      "steps": [
+        31,
+        39
+      ],
+      "nodes": 33835,
+      "illicit": 955,
+      "licit": 7520,
+      "unknown": 25360,
+      "illicit_share_of_known": 0.11268436578171091
+    },
+    "test": {
+      "steps": [
+        40,
+        49
+      ],
+      "nodes": 46647,
+      "illicit": 636,
+      "licit": 10548,
+      "unknown": 35463,
+      "illicit_share_of_known": 0.05686695278969957
+    }
+  },
+  "processor_fit_rows": 26905,
+  "constant_columns_in_fit_rows": [],
+  "clipped_value_share": 0.001039709700987913,
+  "split_hash": "f34fddfbc4f03cec958737bacf209f7b4f9a1f5e0a216281eec237ed5ba7dd94"
+}
